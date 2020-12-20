@@ -41,5 +41,3 @@ class Api(APIView):
 			res["data"] = cursor.fetchall()
 			res["length"] = len(res["data"])
 			return Response(res)
-
-		return Response({"rsgrs":[("EFds",)]})

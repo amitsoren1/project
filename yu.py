@@ -16,9 +16,9 @@ import subprocess, os, argparse
 
 class SetupSSL:
     clone_url_command = ['git','clone','https://github.com/acmesh-official/acme.sh']
-    upgrade_acme_command = ['acme.sh','--upgrade']
+    upgrade_acme_command = ['./acme.sh','--upgrade']
     install_acme_command = ['./acme.sh','--install']
-    test_acme_command = ['acme.sh','-v']
+    # test_acme_command = ['acme.sh','-v']
     def run_commands(self,commands):
         process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -37,21 +37,26 @@ class SetupSSL:
         return outputs,errors_and_warnings
     
     def install_acme(self):
-        out,warn_err = self.run_commands(self.test_acme_command)
-        if len(warn_err) == 0:
-            print("upgrading...")
-            out,warn_err = self.run_commands(self.upgrade_acme_command)
-            print(out[-1])
-        else:
-            out,warn_err = self.run_commands(self.clone_url_command)
-            for err in warn_err:
-                print(err)
-            currdir = os.getcwd()
-            os.chdir(os.path.join(currdir,"acme.sh"))
-            out, warn_err = self.run_commands(self.install_acme_command)
-            for x in out:
-                print(x)
-            os.chdir(currdir)
+        # out,warn_err = self.run_commands(self.test_acme_command)
+        # if len(warn_err) == 0:
+        #     print("upgrading...")
+        #     out,warn_err = self.run_commands(self.upgrade_acme_command)
+        #     print(out[-1])
+        # else:
+        out,warn_err = self.run_commands(self.clone_url_command)
+        for err in warn_err:
+            print(err)
+        currdir = os.getcwd()
+        os.chdir(os.path.join(currdir,"acme.sh"))
+
+        print("upgrading...")
+        out,warn_err = self.run_commands(self.upgrade_acme_command)
+        print(out[-1])
+
+        out, warn_err = self.run_commands(self.install_acme_command)
+        for x in out:
+            print(x)
+        os.chdir(currdir)
 
 if __name__ == '__main__':
     my_parser = argparse.ArgumentParser()

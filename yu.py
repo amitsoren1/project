@@ -1,6 +1,6 @@
 import subprocess
 # process = subprocess.Popen(['git', 'clone', 'https://github.com/acmesh-official/acme.sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-process = subprocess.Popen(['acme.sh/acme.sh', '--install'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+process = subprocess.Popen(['acme.sh/acme.sh', '--uninstall'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 process.wait() # Wait for process to complete.
 
 # iterate on the stdout line by line

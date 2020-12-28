@@ -29,7 +29,7 @@ class SetupSSL:
         for line in process.stdout.readlines():
             outputs.append(line.decode("utf-8"))
 
-        print("ERROR")
+        # print("ERROR")
 
         errors_and_warnings = []
         for line in process.stderr.readlines():

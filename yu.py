@@ -1,5 +1,5 @@
 import subprocess
-process = subprocess.Popen(['curl', 'https://get.acme.sh', '|', 'sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+process = subprocess.Popen(['git', 'clone', 'https://github.com/acmesh-official/acme.sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 process.wait() # Wait for process to complete.
 
 # iterate on the stdout line by line

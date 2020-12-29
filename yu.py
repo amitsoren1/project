@@ -62,7 +62,15 @@ class SetupSSL:
             
     
     def issue_cert(self):
-        pass
+        if self.verify:
+            pass:
+        else:
+            out,warn_err = self.run_commands(self.issue_cert_command)
+            for x in out:
+                print(x)
+            print("PPPPPPPPPPP")
+            for x in warn_err:
+                print(x)
 
 if __name__ == '__main__':
     my_parser = argparse.ArgumentParser()
@@ -71,5 +79,6 @@ if __name__ == '__main__':
     args = my_parser.parse_args()
     # print(vars(args))
     obj = SetupSSL(vars(args)['d'],vars(args)['v'])
-    obj.install_acme()
+    # obj.install_acme()
+    obj.issue_cert()
     # print(obj.issue_cert_command)

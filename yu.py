@@ -59,7 +59,10 @@ class SetupSSL:
         # out, warn_err = self.run_commands(self.install_acme_command)
         # for x in out:
         #     print(x)
-        self.run_commands(self.test_acme_command)
+        try:
+            self.run_commands(self.test_acme_command)
+        except:
+            pass
     
     def issue_cert(self):
         pass

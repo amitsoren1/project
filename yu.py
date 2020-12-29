@@ -23,14 +23,14 @@ class SetupSSL:
     renew_cert_command = ['./acme.sh', '--renew', '-d', 'domain.com', '--dns', 
                             '--yes-I-know-dns-manual-mode-enough-go-ahead-please']
     test_acme_command = ['acme.sh','-v']
+    create_alias_command = [alias alias_name=’command’]
     def __init__(self,domain,verify):
         self.domain = domain
         self.issue_cert_command[3] = self.renew_cert_command[3] = self.domain
         self.verify =verify
 
     def run_commands(self,commands):
-        process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
+        process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell=True)
         process.wait() # Wait for process to complete.
 
         # iterate on the stdout line by line
@@ -59,9 +59,10 @@ class SetupSSL:
         # out, warn_err = self.run_commands(self.install_acme_command)
         # for x in out:
         #     print(x)
-        # try:
-        self.run_commands(self.test_acme_command)
-        # except:
+        try:
+            self.run_commands(self.test_acme_command)
+        except:
+            pass
             
     
     def issue_cert(self):

@@ -85,6 +85,6 @@ if __name__ == '__main__':
     args = my_parser.parse_args()
     # print(vars(args))
     obj = SetupSSL(vars(args)['d'],vars(args)['verifyTXT'])
-    # obj.install_acme()
+    obj.install_acme()
     obj.issue_cert()
     # print(obj.issue_cert_command)

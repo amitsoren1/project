@@ -22,7 +22,7 @@ class SetupSSL:
                             '--yes-I-know-dns-manual-mode-enough-go-ahead-please']
     renew_cert_command = ['./acme.sh', '--renew', '-d', 'domain.com', '--dns', 
                             '--yes-I-know-dns-manual-mode-enough-go-ahead-please']
-    test_acme_command = ['acme.sh','-v']
+    # test_acme_command = ['acme.sh','-v']
     # create_alias_command = [alias alias_name=’command’]
     def __init__(self,domain,verify):
         self.domain = domain
@@ -46,23 +46,19 @@ class SetupSSL:
         return outputs,errors_and_warnings
     
     def install_acme(self):
-        # out,warn_err = self.run_commands(self.clone_url_command)
-        # for err in warn_err:
-        #     print(err)
-        # self.currdir = os.getcwd()
-        # os.chdir(os.path.join(self.currdir,"acme.sh"))
+        out,warn_err = self.run_commands(self.clone_url_command)
+        for err in warn_err:
+            print(err)
+        self.currdir = os.getcwd()
+        os.chdir(os.path.join(self.currdir,"acme.sh"))
 
-        # print("upgrading...")
-        # out,warn_err = self.run_commands(self.upgrade_acme_command)
-        # print(out[-1])
+        print("upgrading...")
+        out,warn_err = self.run_commands(self.upgrade_acme_command)
+        print(out[-1])
 
-        # out, warn_err = self.run_commands(self.install_acme_command)
-        # for x in out:
-        #     print(x)
-        try:
-            self.run_commands(self.test_acme_command)
-        except:
-            pass
+        out, warn_err = self.run_commands(self.install_acme_command)
+        for x in out:
+            print(x)
             
     
     def issue_cert(self):

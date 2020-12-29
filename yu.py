@@ -62,6 +62,7 @@ class SetupSSL:
             
     
     def issue_cert(self):
+        print("EXECUTING ISSUE")
         if self.verify:
             pass
         else:
@@ -79,6 +80,6 @@ if __name__ == '__main__':
     args = my_parser.parse_args()
     # print(vars(args))
     obj = SetupSSL(vars(args)['d'],vars(args)['v'])
-    # obj.install_acme()
+    obj.install_acme()
     obj.issue_cert()
     # print(obj.issue_cert_command)

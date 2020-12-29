@@ -23,7 +23,7 @@ class SetupSSL:
     renew_cert_command = ['./acme.sh', '--renew', '-d', 'domain.com', '--dns', 
                             '--yes-I-know-dns-manual-mode-enough-go-ahead-please']
     test_acme_command = ['acme.sh','-v']
-    create_alias_command = [alias alias_name=’command’]
+    # create_alias_command = [alias alias_name=’command’]
     def __init__(self,domain,verify):
         self.domain = domain
         self.issue_cert_command[3] = self.renew_cert_command[3] = self.domain

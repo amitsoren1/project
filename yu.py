@@ -30,7 +30,7 @@ class SetupSSL:
         self.verify =verify
 
     def run_commands(self,commands):
-        process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell=True)
+        process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         process.wait() # Wait for process to complete.
 
         # iterate on the stdout line by line

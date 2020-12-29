@@ -63,7 +63,7 @@ class SetupSSL:
     
     def issue_cert(self):
         if self.verify:
-            pass:
+            pass
         else:
             out,warn_err = self.run_commands(self.issue_cert_command)
             for x in out:

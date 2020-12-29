@@ -67,11 +67,11 @@ class SetupSSL:
             pass
         else:
             out,warn_err = self.run_commands(self.issue_cert_command)
-            for x in out:
-                print(x)
-            print("PPPPPPPPPPP")
-            for x in warn_err:
-                print(x)
+            f = open(f"{self.domain}.txt", "w")
+            f.write(out[5].split("] ")[1])
+            f.write("\n")
+            f.write(out[6].split("] ")[1])
+            f.close()
 
 if __name__ == '__main__':
     my_parser = argparse.ArgumentParser()

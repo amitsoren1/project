@@ -1,18 +1,4 @@
 import subprocess, os, argparse
-# os.chdir(os.path.join(os.getcwd(),"acme.sh"))
-# # process = subprocess.Popen(['git', 'clone', 'https://github.com/acmesh-official/acme.sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-# process = subprocess.Popen(['./acme.sh','--uninstall'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-# process.wait() # Wait for process to complete.
-
-# # iterate on the stdout line by line
-# for line in process.stdout.readlines():
-#     print(line.decode("utf-8"))
-
-# print("ERROR")
-
-# for line in process.stderr.readlines():
-#     print(line)
 
 class SetupSSL:
     clone_url_command = ['git','clone','https://github.com/acmesh-official/acme.sh']
@@ -61,14 +47,15 @@ class SetupSSL:
     
     def issue_cert(self):
         os.chdir(os.path.join(self.currdir,"acme.sh"))
-        print("EXECUTING ISSUE")
+        # print("EXECUTING ISSUE")
         if self.verify:
             out,war_err = self.run_commands(self.renew_cert_command)
             for x in war_err:
                 print(x)
-            print("YYYYYYYY")
-            for x in out:
-                print(x)
+            try:
+                print(out[11])
+            except:
+                print("Could not verify TXT")
         else:
             out,warn_err = self.run_commands(self.issue_cert_command)
             f = open(f"{self.domain}.txt", "w")
@@ -76,6 +63,7 @@ class SetupSSL:
             f.write("\n")
             f.write(out[6].split("] ")[1])
             f.close()
+            print(f"Put the txt record to DNS from {self.currdir}/acme.sh/{self.domain}.txt")
 
 if __name__ == '__main__':
     my_parser = argparse.ArgumentParser()
@@ -83,7 +71,9 @@ if __name__ == '__main__':
     my_parser.add_argument('--verifyTXT', action='store', type=str)
     args = my_parser.parse_args()
     # print(vars(args))
+    if vars(args)['d'] is None:
+        raise Exception("Missing Domain -d")
     obj = SetupSSL(vars(args)['d'],vars(args)['verifyTXT'])
-    obj.install_acme()
-    obj.issue_cert()
-    # print(obj.issue_cert_command)
+    # obj.install_acme()
+    # obj.issue_cert()
+    # os.chdir(obj.currdir)

@@ -57,12 +57,18 @@ class SetupSSL:
             except:
                 print("Could not verify TXT")
         else:
-            out,warn_err = self.run_commands(self.issue_cert_command)
+            out,war_err = self.run_commands(self.issue_cert_command)
             f = open(f"{self.domain}.txt", "w")
             f.write(out[5].split("] ")[1])
             f.write("\n")
             f.write(out[6].split("] ")[1])
             f.close()
+            for x in out:
+                print(x)
+            print(77777777777777)
+            for x in war_err:
+                print(x)
+
             print(f"Put the txt record to DNS from {self.currdir}/acme.sh/{self.domain}.txt")
 
 if __name__ == '__main__':

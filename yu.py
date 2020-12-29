@@ -52,19 +52,23 @@ class SetupSSL:
         self.currdir = os.getcwd()
         os.chdir(os.path.join(self.currdir,"acme.sh"))
 
-        print("upgrading...")
-        out,warn_err = self.run_commands(self.upgrade_acme_command)
-        print(out[-1])
-
         out, warn_err = self.run_commands(self.install_acme_command)
         for x in out:
             print(x)
+        print("upgrading...")
+        out,warn_err = self.run_commands(self.upgrade_acme_command)
+        print(out[-1])
             
     
     def issue_cert(self):
         print("EXECUTING ISSUE")
         if self.verify:
-            pass
+            out,war_err = self.run_commands(self.renew_cert_command)
+            for x in war_err:
+                print(x)
+            print("YYYYYYYY")
+            for x in out:
+                print(x)
         else:
             out,warn_err = self.run_commands(self.issue_cert_command)
             f = open(f"{self.domain}.txt", "w")
@@ -76,10 +80,10 @@ class SetupSSL:
 if __name__ == '__main__':
     my_parser = argparse.ArgumentParser()
     my_parser.add_argument('--d', action='store', type=str)
-    my_parser.add_argument('--v', action='store', type=str)
+    my_parser.add_argument('--verifyTXT', action='store', type=str)
     args = my_parser.parse_args()
     # print(vars(args))
-    obj = SetupSSL(vars(args)['d'],vars(args)['v'])
-    obj.install_acme()
+    obj = SetupSSL(vars(args)['d'],vars(args)['verifyTXT'])
+    # obj.install_acme()
     obj.issue_cert()
     # print(obj.issue_cert_command)

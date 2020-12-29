@@ -74,6 +74,6 @@ if __name__ == '__main__':
     if vars(args)['d'] is None:
         raise Exception("Missing Domain -d")
     obj = SetupSSL(vars(args)['d'],vars(args)['verifyTXT'])
-    # obj.install_acme()
-    # obj.issue_cert()
+    obj.install_acme()
+    obj.issue_cert()
     # os.chdir(obj.currdir)

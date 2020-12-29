@@ -53,8 +53,7 @@ class SetupSSL:
         os.chdir(os.path.join(self.currdir,"acme.sh"))
 
         out, warn_err = self.run_commands(self.install_acme_command)
-        for x in out:
-            print(x)
+        print(out[-1],"installed")
         print("upgrading...")
         out,warn_err = self.run_commands(self.upgrade_acme_command)
         print(out[-1])

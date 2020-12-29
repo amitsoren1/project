@@ -28,6 +28,7 @@ class SetupSSL:
         self.domain = domain
         self.issue_cert_command[3] = self.renew_cert_command[3] = self.domain
         self.verify =verify
+        self.currdir = os.getcwd()
 
     def run_commands(self,commands):
         process = subprocess.Popen(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -49,7 +50,6 @@ class SetupSSL:
         out,warn_err = self.run_commands(self.clone_url_command)
         for err in warn_err:
             print(err)
-        self.currdir = os.getcwd()
         os.chdir(os.path.join(self.currdir,"acme.sh"))
 
         out, warn_err = self.run_commands(self.install_acme_command)
@@ -61,6 +61,7 @@ class SetupSSL:
             
     
     def issue_cert(self):
+        os.chdir(os.path.join(self.currdir,"acme.sh"))
         print("EXECUTING ISSUE")
         if self.verify:
             out,war_err = self.run_commands(self.renew_cert_command)

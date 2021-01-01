@@ -53,7 +53,7 @@ ACC_KEY_BITS = 2048
 CERT_PKEY_BITS = 2048
 
 # Domain name for the certificate.
-DOMAIN = 'client.example.com'
+DOMAIN = 'example.com'
 
 # If you are running Boulder locally, it is possible to configure any port
 # number to execute the challenge, but real CA servers will always use port
@@ -169,7 +169,7 @@ def example_http():
     # Terms of Service URL is in client_acme.directory.meta.terms_of_service
     # Registration Resource: regr
     # Creates account with contact information.
-    email = ('fake@example.com')
+    email = ('mycoop@gmail.com')
     regr = client_acme.new_account(
         messages.NewRegistration.from_data(
             email=email, terms_of_service_agreed=True))
@@ -223,7 +223,7 @@ def example_http():
 
     # Change contact information
 
-    email = 'newfake@example.com'
+    email = '@gmail.com'
     regr = client_acme.update_registration(
         regr.update(
             body=regr.body.update(

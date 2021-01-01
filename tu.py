@@ -42,8 +42,8 @@ def get_http_challenge(authzr):
     	print("SSSSSSSSSSSS",challenge.chall.typ)
         if challenge.chall.typ == 'http-01':
             return challenge
-    else:
-        raise Exception("Could not find an HTTP challenge!")
+    	else:
+        	raise Exception("Could not find an HTTP challenge!")
 
 
 def request_cert(domain):
